@@ -22,11 +22,6 @@ require(["ramda", "jquery"], function(_, $) {
     });
   };
 
-  var trace = _.curry(function(tag, x) {
-    console.log(tag, x);
-    return x;
-  });
-
   var url = function(t) {
     return (
       "http://api.flickr.com/services/feeds/photos_public.gne?tags=" +
@@ -36,14 +31,10 @@ require(["ramda", "jquery"], function(_, $) {
   };
 
   var mediaUrl = _.compose(_.prop("m"), _.prop("media"));
-
   var srcs = _.compose(_.map(mediaUrl), _.prop("items"));
-
   var images = _.compose(_.map(img), srcs);
-
   var renderImages = _.compose(Impure.setHtml("body"), images);
-
   var app = _.compose(Impure.getJSON(renderImages), url);
 
-  app("war");
+  app("javascript");
 });
